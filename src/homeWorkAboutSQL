@@ -1,0 +1,49 @@
+create table city(
+    city_id INT primary key,
+    city_name VARCHAR not null);
+select * from city;
+create table employee(
+    id BIGSERIAL NOT NULL PRIMARY KEY ,
+    first_name varchar (50) not null ,
+    last_name varchar(50) not null ,
+    gender varchar(6) not null ,
+    age int not null
+);
+select * from employee;
+insert into employee(first_name, last_name, gender,age)
+    values ('Petr','Petrov','m', 22),('Dima','Semenov','m',50),('Igor','Pavlov','m',32);
+select * from employee;
+alter table employee ADD COLUMN city_id varchar(20);
+alter table employee drop column  city_id;
+select * from employee;
+alter table employee add column city_id int;
+select * from employee;
+ALTER TABLE employee ADD FOREIGN KEY (city_id) REFERENCES city(city_id);
+insert into city(city_id, city_name)
+    values (1,'Kazan');
+insert into city(city_id, city_name)
+values (2,'Ufa');
+insert into city(city_id, city_name)
+values (3,'Samara');
+insert into city(city_id, city_name)
+values (4,'Orenburg');
+select * from employee;
+select  * from city;
+insert into employee(first_name, last_name, gender,age,city_id)
+values ('Petr','Petrov','m', 22,1),('Dima','Semenov','m',50,2),('Igor','Pavlov','m',32,3);
+select * from employee;
+delete from employee where id=1;
+delete from employee where id=2;
+delete from employee where id=3;
+select * from employee;
+select 'Second part' dual;
+select first_name,last_name, city_name
+from employee
+right join city
+on employee.city_id = city.city_id;
+select city_name, first_name,last_name
+from city
+left join employee
+on city.city_id = employee.city_id;
+select first_name, city_name from employee
+cross join city;
